@@ -23,10 +23,10 @@ app.delete('/term/:id', deleteTerm);
 app.get('/chart', listGroups);
 app.post('/chart/group', postGroup);
 app.post('/chart', postChart);
-app.put('/chart', putChart);
-app.patch('/chart/group', updateGroup);
-app.delete('/chart', removeChart);
-app.delete('/chart/group', removeGroup);
+app.put('/chart/:id', putChart);
+app.patch('/chart/group/:id', updateGroup);
+app.delete('/chart/:id', removeChart);
+app.delete('/chart/group/:id', removeGroup);
 
 // Enum routes
 app.get('/language', languages);
