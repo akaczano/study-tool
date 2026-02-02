@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Term {
+  id            Int @id @default(autoincrement())
+  term          String
+  definition    String
+  partOfSpeech  PartOfSpeech
+  language      Language
+  requiredCase  Case?  
+  notes         String?  
+  tags          Tag[]
+  
+  @@map("terms")
+}
+
+model Tag {
+  description  String @id
+  terms       Term[]
+
+  @@map("tags")
+}
+
+model Chart {
+  id          Int @id @default(autoincrement())
+  description String
+  language    Language
+  data        String?
+  group       ChartGroup @relation(fields: [groupId], references: [id])
+  groupId     Int
+
+  @@map("charts")
+}
+
+model ChartGroup {
+  id            Int @id @default(autoincrement())
+  description   String
+  charts        Chart[]
+
+  @@map("chart-groups")
+}
+
+
+enum PartOfSpeech {
+  NOUN
+  VERB
+  ADJECTIVE
+  ADVERB
+  PRONOUN
+  PREPOSITION
+  OTHER
+}
+
+enum Case {
+  NOMINATIVE
+  GENITIVE
+  DATIVE
+  ABLATIVE
+  ACCUSATIVE
+  VOCATIVE
+}
+
+enum Language {
+  GREEK
+  LATIN
+}
