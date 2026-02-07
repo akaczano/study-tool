@@ -13,6 +13,18 @@ export const listGroups = async (req: Request, res: Response) => {
     }
 }
 
+export const fetchChart = async (req: Request, res: Response) => {    
+    const { id }  = req.params;
+    try {
+        const result = await prisma.chart.findFirst({
+            where: { id: parseInt(id.toString()) }
+        })        
+        res.status(200).json(result);
+    } catch (err) {
+        handleError(res, err);
+    }
+}
+
 export const postGroup = async (req: Request, res: Response) => {
     
     const { description } = req.body;

@@ -3,7 +3,7 @@ import cors from 'cors';
 
 import { cases, languages, partsOfSpeech } from './dao/constants';
 import { postTerm, updateTerm, listTerms, listTags, deleteTerm, countTerms, deleteTag } from './dao/terms';
-import { listGroups, postGroup, postChart, putChart, updateGroup, removeChart, removeGroup } from './dao/charts'; 
+import { listGroups, postGroup, postChart, putChart, updateGroup, removeChart, removeGroup, fetchChart } from './dao/charts'; 
 
 const app = express();
 
@@ -21,6 +21,7 @@ app.delete('/term/:id', deleteTerm);
 
 // Chart routse
 app.get('/chart', listGroups);
+app.get('/chart/:id', fetchChart);
 app.post('/chart/group', postGroup);
 app.post('/chart', postChart);
 app.put('/chart/:id', putChart);

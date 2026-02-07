@@ -22,6 +22,8 @@ describe('CR chart', () => {
         const resp1 = await request(app).get('/chart').expect(200)
         expect(resp1.body).toHaveLength(1)
         expect(resp1.body[0]).toHaveProperty("description", "Test group");
+
+
     })
 
     it('should post a chart in a group', async () => {
@@ -42,6 +44,10 @@ describe('CR chart', () => {
         expect(resp3.body[0]).toHaveProperty("charts");
         expect(resp3.body[0].charts).toHaveLength(1);
         expect(resp3.body[0].charts[0]).toHaveProperty("description", "First chart");
+
+        const resp4 = await request(app).get(`/chart/${resp3.body[0].charts[0].id}`).expect(200)
+        expect(resp4.body).toHaveProperty("description", "First chart");
+
 
     })
 
