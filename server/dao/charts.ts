@@ -1,11 +1,19 @@
 import { prisma } from "../lib/prisma";
 import { Request, Response } from 'express';
 import { handleError } from '../lib/response_helper';
+import { Language } from "../generated/prisma/enums";
 
-export const listGroups = async (req: Request, res: Response) => {
+export const listGroups = async (req: Request, res: Response) => {    
+
+    const language = req.query?.language?.toString() || "GREEK";
+    
+
     try {
         const result = await prisma.chartGroup.findMany({
-            include: { charts: true }
+            include: { charts: true },
+            where: {
+                language: language as Language
+            }
         });
         res.status(200).json(result);
     } catch (err) {
@@ -27,12 +35,13 @@ export const fetchChart = async (req: Request, res: Response) => {
 
 export const postGroup = async (req: Request, res: Response) => {
     
-    const { description } = req.body;
+    const { description, language } = req.body;
 
     try {
         const result = await prisma.chartGroup.create({
             data: {
-                description
+                description,
+                language
             }
         });
         res.status(201).json(result);

@@ -13,7 +13,7 @@ import Terms from './pages/Terms';
 import Charts from './pages/Charts';
 import Notes from './pages/Notes';
 import ViewChart from './components/charts/ViewChart';
-import EditChart from './components/charts/EditChart';
+import Chart from './components/charts/Chart';
 
 const queryClient = new QueryClient();
 
@@ -28,8 +28,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/charts" element={<Charts />} />
-            <Route path="/charts/:chartId" element={<ViewChart />} />
-            <Route path="/charts/:chartId/edit" element={<EditChart />} /> 
+            <Route path="/charts/:chartId" element={<Chart />} />            
             <Route path="/notes" element={<Notes />} />
           </Routes>
         </BrowserRouter>

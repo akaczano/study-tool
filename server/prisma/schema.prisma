@@ -44,11 +44,11 @@ model Chart {
 model ChartGroup {
   id            Int @id @default(autoincrement())
   description   String
+  language      Language @default(GREEK)
   charts        Chart[]
 
   @@map("chart-groups")
 }
-
 
 enum PartOfSpeech {
   NOUN

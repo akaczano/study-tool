@@ -14,8 +14,8 @@ export type ChartGroup = {
     charts: Chart[]
 }
 
-export const fetchGroups = async () => {
-    const result = await client.get('/chart');
+export const fetchGroups = async (language="GREEK") => {
+    const result = await client.get(`/chart?language=${language}`);
     if (result.status === 200) {
         return result.data;
     }   
@@ -61,5 +61,15 @@ export const removeChart = async (chart: Chart) => {
     }
     else {
         throw Error("Failed to delete chart " + result.data.message);
+    }
+}
+
+export const updateChart = async (chart: Chart) => {
+    const result = await client.put(`/chart/${chart.id}`, chart);
+    if (result.status === 200) {
+        return result.data;
+    }
+    else {
+        throw Error("Failed to update chart " + result.data.message);
     }
 }

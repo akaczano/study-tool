@@ -2,16 +2,15 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Accordion, Spinner, Button, ListGroup, Stack, Row, Col } from 'react-bootstrap';
 import { ChartGroup, Chart, fetchGroups, createChart, removeChart } from '../../api/charts';
 import { BsPencil, BsTrash } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
-function ChartGroups() {
+function ChartGroups(props: {language: string }) {
 
+    console.log(props.language)
     const queryClient = useQueryClient();
-    const query = useQuery({ queryKey: ["charts"], queryFn: fetchGroups })
-
-    const navigate = useNavigate();
+    const query = useQuery({ queryKey: ["charts", props.language], queryFn: () => fetchGroups(props.language) })
 
     const create = useMutation({ mutationFn: createChart, onSuccess:() => {
         queryClient.invalidateQueries({ queryKey: ["charts"] })
@@ -52,20 +51,13 @@ function ChartGroups() {
         return (
             <ListGroup.Item>
                 <Row>
-                    <Col md={2}>
-                        <Button variant="link" onClick={() => navigate(`/charts/${chart.id}`) }>
-                            {chart.description}
-                        </Button>
+                    <Col md={4}>                        
+                        <Link to={`/charts/${chart.id}`}>{chart.description}</Link>                        
                     </Col>
                     <Col md={1}>
-                        <Stack direction="horizontal" gap={2}>
-                            <Button variant="secondary" size="sm">
-                                <BsPencil />
-                            </Button>
-                            <Button variant="danger" size="sm" disabled={remove.isPending} onClick={() => remove.mutate(chart)}>
-                                {remove.isPending ? <Spinner size="sm" /> : <BsTrash />}
-                            </Button>       
-                        </Stack> 
+                        <Button variant="danger" size="sm" disabled={remove.isPending} onClick={() => remove.mutate(chart)}>
+                            {remove.isPending ? <Spinner size="sm" /> : <BsTrash />}
+                        </Button>       
                     </Col>
                 </Row>         
             </ListGroup.Item>

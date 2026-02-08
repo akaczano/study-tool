@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink } from 'react-router-dom';
 
 
 function AppNav() {
@@ -12,10 +12,10 @@ function AppNav() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/terms">Terms</Nav.Link>
-                    <Nav.Link href="/charts">Charts</Nav.Link>
-                    <Nav.Link href="/notes">Notes</Nav.Link>
+                    <NavLink to="/" className="nav-link">Home</NavLink>
+                    <NavLink to="/terms" className="nav-link">Terms</NavLink>
+                    <NavLink to="/charts" className="nav-link">Charts</NavLink>
+                    <NavLink to="/notes" className="nav-link">Notes</NavLink>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

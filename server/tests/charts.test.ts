@@ -29,7 +29,7 @@ describe('CR chart', () => {
     it('should post a chart in a group', async () => {
         const resp1 = await request(app)
             .post('/chart/group')
-            .send({ description: "Test group"})
+            .send({ description: "Test group", language: "GREEK" })
             .expect(201);
         expect(resp1.body).toHaveProperty("id");
 
@@ -57,7 +57,7 @@ describe('UD chart', () => {
     it('should update a group', async () => {
         const resp1 = await request(app)
             .post('/chart/group')
-            .send({ description: "Group 1"})
+            .send({ description: "Group 1", language: "GREEK" })
             .expect(201);
         expect(resp1.body).toHaveProperty("id");
         const resp2 = await request(app).get('/chart').expect(200);
@@ -66,7 +66,7 @@ describe('UD chart', () => {
         expect(resp2.body[0]).toHaveProperty("description", "Group 1");
         await request(app)
                 .patch(`/chart/group/${resp1.body.id}`)
-                .send({ description: "Second group" })
+                .send({ description: "Second group", language: "GREEK" })
                 .expect(200);
         const resp3 = await request(app).get('/chart').expect(200);
         expect(resp3.body).toHaveLength(1);
@@ -76,11 +76,11 @@ describe('UD chart', () => {
     it('should update a chart', async () => {
         const resp1 = await request(app)
             .post('/chart/group')
-            .send({ description: "Group A"})
+            .send({ description: "Group A", language: "GREEK"})
             .expect(201);
         const resp2 = await request(app)
             .post('/chart/group')
-            .send({ description: "Group B"})
+            .send({ description: "Group B", language: "GREEK"})
             .expect(201);
 
         const resp3 = await request(app)
@@ -116,7 +116,7 @@ describe('UD chart', () => {
     it('should delete a chart', async () => {
         const resp1 = await request(app)
             .post('/chart/group')
-            .send({ description: "Test group"})
+            .send({ description: "Test group", language: "GREEK"})
             .expect(201);
         const resp2 = await request(app)
             .post('/chart')
@@ -141,7 +141,7 @@ describe('UD chart', () => {
     it('should delete a group', async () => {
         const resp1 = await request(app)
             .post('/chart/group')
-            .send({ description: "Test group"})
+            .send({ description: "Test group", language: "GREEK"})
             .expect(201);
         await request(app)
             .delete(`/chart/group/${resp1.body.id}`)
